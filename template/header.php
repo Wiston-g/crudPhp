@@ -13,9 +13,8 @@
   <body>
         
     <nav class="nav justify-content-center|justify-content-end bg-dark text-ligth">
-        <a class="nav-link active" href="#">BIXXUS</a>
+        <a class="nav-link active" href="https://bixxus.com/product/compre-un-pin-netflix-con-bitcoin/" target="blank">BIXXUS</a>
         <a class="nav-link" href="products.php">Productos</a>
-        <a class="nav-link" href="#">Cerrar</a>
     </nav>
 
     <div class="container">

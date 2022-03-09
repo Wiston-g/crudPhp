@@ -28,6 +28,7 @@
 
             $sentencia->bindParam(':IMAGEN', $nameFile);
             $sentencia->execute();
+            header("Location:products.php");
             break;
         case 'editar':
             $sentencia = $conexion->prepare("UPDATE `productos` SET `NAME`=:NAMES WHERE ID=:ID");
@@ -68,11 +69,10 @@
                 $sentencia->bindParam(':IMAGEN', $nameFile);
                 $sentencia->execute();
             };
-            
+            header("Location:products.php");
             break;
         case 'cancelar':
-            # code...
-            echo "cancelar";
+            header("Location:products.php");
             break;
         case 'Seleccionar':
             $sentencia = $conexion->prepare("SELECT * FROM `productos` WHERE ID=:ID");
@@ -102,6 +102,7 @@
             $sentencia = $conexion->prepare("DELETE FROM `productos` WHERE ID=:ID");
             $sentencia->bindParam(':ID', $id);
             $sentencia->execute();
+            header("Location:products.php");
             break;
         
         default:
@@ -128,27 +129,31 @@
 
                 <div class="mb-3">
                     <label for="id" class="form-label">ID:</label>
-                    <input type="text" class="form-control" id="id" name="id" value="<?php echo $id; ?>" placeholder="ID">
+                    <input type="text" class="form-control" id="id" name="id" value="<?php echo $id; ?>" placeholder="ID" required readonly>
                 </div>
 
                 <div class="mb-3">
                     <label for="name" class="form-label">Nombre:</label>
-                    <input type="text" class="form-control" id="name" name="name" value="<?php echo $name; ?>" placeholder="Nombre del producto">
+                    <input type="text" class="form-control" id="name" name="name" value="<?php echo $name; ?>" placeholder="Nombre del producto" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="description" class="form-label">Descripción:</label>
-                    <input type="text" class="form-control" id="description" name="description" value="<?php echo $description; ?>"placeholder="Description del producto">
+                    <input type="text" class="form-control" id="description" name="description" value="<?php echo $description; ?>"placeholder="Description del producto" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="precio" class="form-label">Precio:</label>
-                    <input type="number" class="form-control" id="precio" name="precio" value="<?php echo $price; ?>"placeholder="Precio del producto">
+                    <input type="number" class="form-control" id="precio" name="precio" value="<?php echo $price; ?>"placeholder="Precio del producto" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="txtImagen" class="form-label">Imagen:</label>
-                    <?php echo $imagen; ?>
+                    
+                    <?php if($imagen!=""){ ?> 
+                        <img src="../../img/<?php echo $imagen;?>" width="50px" alt="imagen producto">  
+                    <?php     }?>    
+
                     <input class="form-control" type="file" id="txtImagen" name="txtImagen" >
                 </div>
                 
@@ -184,7 +189,9 @@
                 <td><?php echo $producto['NAME']; ?></td>
                 <td><?php echo $producto['DESCRIPTION']; ?></td>
                 <td><?php echo $producto['PRICE']; ?></td>
-                <td><?php echo $producto['IMAGEN']; ?></td>
+                <td>
+                    <img src="../../img/<?php echo $producto['IMAGEN'];?>" width="50px" alt="imagen producto">    
+                </td>
                 <td>
                     <form method="POST">
                         <input type="hidden" name="id" id="id" value="<?php echo $producto['ID']; ?>">

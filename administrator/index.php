@@ -1,6 +1,14 @@
-<?php 
+<?php
+    session_start();
     if($_POST){
-        header('Location:admin.php');
+        if($_POST['user']=="wiston" && $_POST['password']=="1234"){
+            $_SESSION['user']="ok";
+            $_SESSION['nameUser']="wiston";
+            header('Location:admin.php');
+        }else{
+            $mensagge = "Usuario o Contraseña no valida";
+        }
+        
     }
 ?>
 
@@ -26,11 +34,16 @@
                         <div class="card-body">
                             <h4 class="card-title text-center">Acceso</h4>
                         </div>
+                        <?php if(isset($mensagge)){ ?>
+                            <div class="alert alert-warning" role="alert">
+                                <?php echo $mensagge; ?>
+                            </div>
+                        <?php }?>
                         <form action="index.php" method="POST">
                             <div class="mb-3 row">
-                                <label for="inputName" class="col-sm-1-12 col-form-label">Usuario:</label>
+                                <label for="user" class="col-sm-1-12 col-form-label">Usuario:</label>
                                 <div class="col-sm-1-12">
-                                    <input type="text" class="form-control" name="inputName" id="inputName" placeholder="Escribe tu usuario">
+                                    <input type="text" class="form-control" name="user" id="user" placeholder="Escribe tu usuario">
                                 </div>
                             </div>
 
